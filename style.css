@@ -1,0 +1,428 @@
+/* reset */
+*
+{
+    margin: 0;
+    padding: 0;
+    transition: .5s;
+    box-sizing: border-box
+}
+
+body
+{
+    background: #F4EFEF;
+}
+
+/* umum */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+a
+{
+    color: bisque;
+    text-decoration: none;
+}
+
+.container
+{
+    width: 100%;
+    height: auto;
+}
+
+.container .content1,.content2
+{
+    display: flex;
+    flex-wrap: wrap;
+
+    justify-content: space-evenly;
+    padding: 2vw 0;
+}
+
+.container .main,.content1,.content2,.content3
+{
+    width: 100%;
+}
+
+.container .content1,.content2,.content3
+{
+    height: auto;
+
+    text-align: justify;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.5vw;
+    color: #7C7878;
+}
+
+/* main */
+.main
+{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 45vw;
+
+    background-size: cover;
+    background-position: 0 80%;
+
+    text-align: center;
+    font-size: 5vw;
+    color: white;
+
+    overflow: hidden;
+}
+
+.main video
+{
+    width: 100vw;
+    height: auto;
+}
+
+.main .text
+{
+    position: absolute;
+    width: 30vw;
+    height: auto;
+    text-shadow: .25vw .25vw .25vw rgba(0, 0, 0, 40%);
+    box-shadow: 0 0 2vw 0px rgba(0, 0, 0, 0.9);
+}
+
+.main .text:hover
+{
+    box-shadow: 0 0 0 0;
+}
+
+/* content1 */
+h1
+{
+    color: #7C7878;
+    text-align: center;
+    font-size: 5vw;
+}
+
+.container .content1 .left1,.right1
+{
+    width: 46vw;
+    height: 90%;
+    padding: 2vw;
+}
+
+.container .content1 .right1
+{
+    border-radius: 2vw 2vw;
+
+    background-color: #43766b;
+    color: #F4EFEF;
+
+    transition: .25s;
+}
+
+.container .content1 .right1:hover
+{
+    box-shadow: 0 0 .5vw .5vw rgba(0, 0, 0, 0.2);
+    transition: .25s ease-out;
+}
+
+/* blogimage */
+.container .blogimage
+{
+    width: 40vw;
+}
+
+/* main */
+:root {
+	--card-height: 40vw;
+	--card-margin: 4vw;
+	--card-top-offset: 1em;
+	--numcards: 4;
+	--outline-width: 0px;
+}
+
+#cards {
+	padding-bottom: calc(var(--numcards) * var(--card-top-offset)); /* Make place at bottom, as items will slide to that position*/
+	margin-bottom: var(--card-margin); /* Don't include the --card-margin in padding, as that will affect the scroll-timeline*/
+}
+
+#card_1 {
+	--index: 1;
+}
+
+#card_2 {
+	--index: 2;
+}
+
+#card_3 {
+	--index: 3;
+}
+
+#card_4 {
+	--index: 4;
+}
+
+.card {
+	position: sticky;
+	top: 0;
+	padding-top: calc(var(--index) * var(--card-top-offset));
+}
+
+@supports (animation-timeline: works) {
+
+
+	.card {
+		--index0: calc(var(--index) - 1); /* 0-based index */
+		--reverse-index: calc(var(--numcards) - var(--index0)); /* reverse index */
+		--reverse-index0: calc(var(--reverse-index) - 1); /* 0-based reverse index */
+	}
+	
+	.card__content {
+		transform-origin: 50% 0%;
+		will-change: transform;
+
+		--duration: calc(var(--reverse-index0) * 1s);
+		--delay: calc(var(--index0) * 1s);
+
+		animation: var(--duration) linear scale var(--delay) forwards;
+	}
+
+	@keyframes scale {
+		to {
+			transform:
+				scale(calc(
+					1.1
+					-
+					calc(0.1 * var(--reverse-index))
+				));
+		}
+	}
+}
+
+/** DEBUG **/
+
+#debug {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+}
+#debug::after {
+  content: " Show Debug";
+  margin-left: 1.5em;
+  color: white;
+  white-space: nowrap;
+}
+
+#debug:checked ~ main {
+  --outline-width: 1px;
+}
+
+
+/** PAGE STYLING **/
+
+* { /* Poor Man's Reset */
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	color: rgb(255, 255, 255);
+	text-align: center;
+
+	font-size: 2vw;
+}
+
+header,
+main {
+	width: 80vw;
+	margin: 0 auto;
+}
+
+header {
+	height: 100vh;
+	display: grid;
+	place-items: center;
+}
+
+#cards {
+	list-style: none;
+	outline: calc(var(--outline-width) * 10) solid blue;
+	
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(var(--numcards), var(--card-height));
+	gap: var(--card-margin);
+}
+
+.card {
+	outline: var(--outline-width) solid hotpink;
+}
+
+.card__content {
+	box-shadow: 0 0.2em 1em rgba(0, 0, 0, 0.1), 0 1em 2em rgba(0, 0, 0, 0.1);
+	background: rgb(255, 255, 255);
+	color: #7C7878;
+	border-radius: 1em;
+	overflow: hidden;
+
+	display: grid;
+	grid-template-areas: "text img";
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: auto;
+
+	align-items: stretch;
+	outline: var(--outline-width) solid lime;
+}
+
+.card__content > div {
+	grid-area: text;
+	width: 80%;
+	place-self: center;
+	text-align: left;
+
+	display: grid;
+	gap: 1em;
+	place-items: start;
+}
+
+.card__content > figure {
+	grid-area: img;
+	overflow: hidden;
+}
+
+.card__content > figure > img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+main h1 {
+	font-weight: 300;
+	font-size: 2vw;
+}
+
+main h2 {
+	font-weight: 300;
+	font-size: 3.5vw;
+}
+
+main p {
+	font-family: sans-serif;
+	font-weight: 300;
+	line-height: 1.42;
+}
+
+.btn {
+	background: rgb(188 87 36);
+	color: rgb(255 255 255);
+	text-decoration: none;
+	display: inline-block;
+	padding: 0.5em;
+	border-radius: 0.25em;
+}
+
+aside {
+	width: 50vw;
+	margin: 0 auto;
+	text-align: left;
+}
+
+aside p {
+	margin-bottom: 1em;
+}
+
+/* content2 */
+.container .content2 .left2,.right2
+{
+    width: 46vw;
+    height: auto;
+}
+
+.container .content2 .left2
+{
+    transition: .25s ease-in-out;
+    box-shadow: 0 0 0 #000000;
+}
+
+.container .content2 .left2:hover
+{
+    box-shadow: 0 0 .5vw .5vw rgba(0, 0, 0, 0.2);
+    transition: .25s ease-out;
+}
+
+/* content3 */
+.container .content3
+{
+    border-radius: 0 40vw 0 0;
+    padding: 5vw;
+    height: auto;
+    
+    text-align: center;
+    background-color: #43766b;
+}
+
+.container iframe
+{
+    width: 50vw;
+    height: 30vw;
+}
+
+.container .content3 .center
+{
+    width: 100%;
+    height: 100%;
+
+    color: #F4EFEF;
+    text-align: justify;
+}
+
+#lastimg
+{
+    width: 100%;
+}
+
+/* anim */
+.ball {
+    position: fixed;
+    border-radius: 100%;
+    opacity: 0.2;
+
+    z-index: -1;
+  }
+
+/* media query */
+@media only screen and (max-width: 600px) {
+    .container .main .text
+    {
+        font-size: 5vw;
+    }
+    .container .content1 div
+    {
+        width: 80vw;
+    }
+    .container .content1 .left1,.right1
+    {
+        width: 80vw;
+        font-size: 3vw;
+    }
+    .container .content1 .left1
+    {
+        padding-bottom: 10vw;
+    }
+    .container .content2 .left2,.right2
+    {
+        width: 80vw;
+        font-size: 3vw;
+    }
+    .container .content2 .left2
+    {
+        width: 80vw;
+        height: 80vw;
+
+        background-attachment: local;
+        background-size: cover;
+        background-position: 0 -15vw;
+    }
+    .container .content3 .center
+    {
+        font-size: 3vw;
+    }
+  }
+
+  
